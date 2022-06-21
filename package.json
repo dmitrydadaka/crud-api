@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node index.ts"
+    "start:dev": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -21,5 +20,12 @@
   "homepage": "https://github.com/dmitrydadaka/crud-api#readme",
   "devDependencies": {
     "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@types/node": "^18.0.0",
+    "cross-env": "^7.0.3",
+    "http": "^0.0.1-security",
+    "nodemon": "^2.0.16",
+    "ts-node": "^10.8.1"
   }
 }

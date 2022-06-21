@@ -32,6 +32,36 @@ const getUsers = (req: IncomingMessage, res: ServerResponse) => {
     );
 };
 
+const getUser = (req: IncomingMessage, res: ServerResponse) => {
+
+    return fs.readFile(
+        path.join(__dirname, "store.json"),
+        "utf8",
+        (err, data) => {
+
+            if (err) {
+
+                res.writeHead(500, { "Content-Type": "application/json" });
+                res.end(
+                    JSON.stringify({
+                        success: false,
+                        error: err,
+                    })
+                );
+            } else {
+
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(
+                    JSON.stringify({
+                        success: true,
+                        message: JSON.parse(data),
+                    })
+                );
+            }
+        }
+    );
+};
+
 const addUser = (req: IncomingMessage, res: ServerResponse) => {
 
     let data = "";
@@ -208,4 +238,4 @@ const deleteUser = (req: IncomingMessage, res: ServerResponse) => {
     });
 };
 
-export { getUsers, addUser, updateUser, deleteUser };
+export { getUsers, addUser, updateUser, deleteUser, getUser };
