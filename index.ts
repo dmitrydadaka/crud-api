@@ -1,5 +1,5 @@
 import http from "http";
-
+import "dotenv/config";
 import { getUsers, addUser, updateUser, deleteUser, getUser } from "./controller";
 
 
@@ -28,6 +28,6 @@ const server = http.createServer((req, res) => {
    }
 });
 
-server.listen(3000, () => {
+server.listen( process.env.PORT , () => {
    console.log("Server is running on port 3000");
 });
