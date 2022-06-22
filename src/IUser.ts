@@ -1,9 +1,8 @@
 interface User {
-    id: number;
     name: string;
-    age: boolean;
+    age: number;
     hobbies: string[] | [];
-
+    id?: string;
  }
  
  export { User }
