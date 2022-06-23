@@ -7,7 +7,7 @@ const addToUsers = (data: User): void => {
 }
 
 const deleteFromUsers = (id: string): void => {
-    users.filter( user=> id === user.id);
+    users = users.filter( user=> id !== user.id);
 } 
 
 const getUserFromUsers = (id: string) => {
