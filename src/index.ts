@@ -5,7 +5,8 @@ import { addUser } from "./controllers/addUserController";
 import { updateUser } from "./controllers/updateUserController";
 import { deleteUser } from "./controllers/deleteUserController";
 import { getUser } from "./controllers/getUserController";
-
+import dotenv from "dotenv";
+dotenv.config();
 const server = http.createServer((req, res) => {
 
      if (req.method === "GET" && req.url!.match(/\/api\/users\/\w+/)) {
@@ -31,6 +32,6 @@ const server = http.createServer((req, res) => {
     }
 });
 
-server.listen(3000, () => {
-    console.log("Server is running on port 3000");
+server.listen(process.env.PORT, () => {
+    console.log("Server is running on port 5000");
 });
