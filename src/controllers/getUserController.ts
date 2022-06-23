@@ -1,10 +1,12 @@
-/* import fs from "fs";
-import path from "path";
+
 import { ServerResponse, IncomingMessage } from "http";
+import { getUserFromUsers } from "../../store";
 import { User } from "../IUser";
 
-const getUser = (req, res, id) => {
-return [req, res, id]
+const getUser = (res: ServerResponse, id: string) => {
+ 
+  const user = getUserFromUsers(id);
+  res.end(JSON.stringify(user));
+ 
 }
-
-export { getUser }; */
+export { getUser };

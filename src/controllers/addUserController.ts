@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { ServerResponse, IncomingMessage } from "http";
 import { v4 as uuidv4 } from "uuid";
-import { store } from '../../store';
+import { addToUsers } from '../../store';
 import { User } from "../IUser";
 
 const addUser = (req: IncomingMessage, res: ServerResponse) => {
@@ -17,9 +17,9 @@ const addUser = (req: IncomingMessage, res: ServerResponse) => {
     newUser = JSON.parse(data);
 
     const user: User = { id: uuidv4(), ...newUser };
-    store(user, 'add');
+    addToUsers(user);
 
-    res.writeHead(200, { "Content-Type": "application/json" });
+    res.writeHead(201, { "Content-Type": "application/json" });
     res.end(
       JSON.stringify({
         success: true,

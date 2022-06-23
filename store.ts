@@ -2,14 +2,16 @@ import { User } from "./src/IUser";
 
 let users: User[] = [];
 
-const store = (user: User, action: string): void => {
-    switch(action){
-        case 'add': users.push(user);
-        break;
-        case 'delete': users.filter( e => e.id !== user.id);
-        break;
-    }
+const addToUsers = (data: User): void => {
+     users.push(data);
+}
+
+const deleteFromUsers = (id: string): void => {
+    users.filter( user=> id === user.id);
 } 
 
+const getUserFromUsers = (id: string) => {
+    return users.find( u => u.id === id);
+}
 
-export { store, users };
+export { addToUsers, deleteFromUsers, getUserFromUsers, users };

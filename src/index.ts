@@ -4,19 +4,19 @@ import { getUsers } from "./controllers/getUsersController";
 import { addUser } from "./controllers/addUserController";
 import { updateUser } from "./controllers/updateUserController";
 import { deleteUser } from "./controllers/deleteUserController";
-//import { getUser } from "./controllers/getUserController";
+import { getUser } from "./controllers/getUserController";
 
 const server = http.createServer((req, res) => {
 
-    /* if (req.method === "GET" && req.url!.match(/\/api\/users\/\w+/)) {
+     if (req.method === "GET" && req.url!.match(/\/api\/users\/\w+/)) {
         const id = req.url!.split("/")[3];
-        return getUser(req, res, id);
-    } */
-    if (req.method == "GET" && req.url == "/api/users") {
+        return getUser(res, id);
+    } 
+    if (req.method == "GET" && (req.url == "/api/users" || req.url == "/api/users/")) {
         getUsers(res);
     }
 
-    if (req.method == "POST" && req.url == "/api/users") {
+    if (req.method == "POST" && (req.url == "/api/users" || req.url == "/api/users/")) {
         return addUser(req, res);
     }
 
