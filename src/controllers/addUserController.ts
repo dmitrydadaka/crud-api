@@ -7,26 +7,41 @@ import { User } from "../IUser";
 
 const addUser = (req: IncomingMessage, res: ServerResponse) => {
   let data = "";
-  let newUser;
 
   req.on("data", (chunk) => {
     data += chunk.toString();
   });
 
   req.on('end', () => {
-    newUser = JSON.parse(data);
+    const user = JSON.parse(data);
 
-    const user: User = { id: uuidv4(), ...newUser };
-    addToUsers(user);
-
-    res.writeHead(201, { "Content-Type": "application/json" });
-    res.end(
-      JSON.stringify({
-        success: true,
-        message: user
-      })
-    )
+    const newUser: User = { id: uuidv4(), ...user };
+    if (
+      user &&
+      user.name &&
+      user.age &&
+      user.hobbies &&
+      Array.isArray(user.hobbies)
+    ) {
+      addToUsers(newUser);
+      res.writeHead(201, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          success: true,
+          message: user
+        })
+      )
+    } else {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          name: "required",
+          age: "required",
+          hobbies: "required",
+        })
+      );
+    }
   })
 }
 
-export {addUser};
+export { addUser };
