@@ -1,3 +1,4 @@
 #CRUD-API
-##Don't fort to use npm install;
+
+##Don't forget to use npm install!
 
