@@ -5,9 +5,7 @@ import { addUser } from "./controllers/addUserController";
 import { updateUser } from "./controllers/updateUserController";
 import { deleteUser } from "./controllers/deleteUserController";
 import { getUser } from "./controllers/getUserController";
-import dotenv from "dotenv";
 
-dotenv.config();
 
 const server = http.createServer((req, res) => {
     
@@ -36,10 +34,6 @@ const server = http.createServer((req, res) => {
         res.writeHead(404, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ message: 'Resource doesn\'t exist!' }));
     
-});
-
-server.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT} `);
 });
 
 export { server };

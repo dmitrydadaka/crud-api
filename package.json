@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start:dev": "nodemon -w src src/index.ts",
-    "start:prod": "tsc && node ./src/index.js"
+    "start:dev": "nodemon -w src src/runSerVer.ts",
+    "start:prod": "tsc && node ./src/runServer.js",
+    "start:multi": "nodemon ./src/cluster.ts"
+
   },
   "jest": {
     "moduleFileExtensions": [
