@@ -7,6 +7,11 @@ const routes = '/api/users';
 
 describe('1 SCENARIO: CRUD', () => {
   let user: User;
+  user = {
+    name: 'Tommy',
+    age: 29,
+    hobbies: ['guitar'],
+  };
 
   it('Should response with empty array: []', async () => {
     const res = await request(server).get(routes);
@@ -15,17 +20,13 @@ describe('1 SCENARIO: CRUD', () => {
   });
 
   it('POST: should response with recorded info about new user', async () => {
-    const bodyReq = {
-      user: 'Tommy',
-      age: 29,
-      hobbies: ['guitar'],
-    };
+     
 
-    const res = await request(server).post(routes).send(bodyReq);
+    const res = await request(server).post(routes).send(user);
     user = res.body;
 
     expect(res.statusCode).toBe(201);
-    expect(res.body).toMatchObject(bodyReq);
+    expect(res.body).toMatchObject(user);
     expect(res.body).toHaveProperty('id');
   });
 
@@ -36,7 +37,7 @@ describe('1 SCENARIO: CRUD', () => {
   });
 
   it('PUT: api/users/{userId}: should update user', async () => {
-    const newName = { name: 'Updated' };
+    const newName = { name: 'Updated', age: 23, hobbies: ['football'] };
     const res = await request(server).put(`${routes}/${user.id}`).send(newName);
     expect(res.body.id).toEqual(user.id);
     expect(res.body.name).toEqual(newName.name);
@@ -90,25 +91,25 @@ describe('3 SCENARIO: Handle errors', () => {
 
   it('POST user: should try to make post method by wrong path', async () => {
     const wrongPath = '/abcd';
-    const bodyReq = {
-      username: 'Tommy',
-      age: 29,
-      hobbies: ['guitar'],
+    const newUser = {
+      username: 'Sasha',
+      age: 33,
+      hobbies: ['reading'],
     };
 
-    const res = await request(server).post(`${routes}/${wrongPath}`).send(bodyReq);
-    const message = { message: 'Page not found' };
+    const res = await request(server).post(`${routes}/${wrongPath}`).send(newUser);
+    const message = { message: 'Resource doesn\'t exist!' };
     expect(res.statusCode).toEqual(404);
     expect(res.body).toEqual(message);
   });
 
   it('POST user: should try to create user without necessary fields', async () => {
-    const badBodyReq = {
+    const newUser = {
       username: 'Tommy',
       hobbies: ['guitar'],
     };
 
-    const res = await request(server).post(routes).send(badBodyReq);
+    const res = await request(server).post(routes).send(newUser);
     const message = {
       name: "required",
       age: "required",
@@ -121,9 +122,9 @@ describe('3 SCENARIO: Handle errors', () => {
   it('PUT user: should try to make put method to user by non existing id', async () => {
     const notExistingID = '6cc7d9eb-5b99-4e0b-8607-7e587e5da432';
     const body = {
-      name: 'Tommy Updated',
+      name: 'Misha',
       age: 21,
-      hobbies:['reading']
+      hobbies:['swimming']
     };
     const res = await request(server).put(`${routes}/${notExistingID}`).send(body);
     expect(res.statusCode).toEqual(404);
