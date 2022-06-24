@@ -26,10 +26,9 @@ const addUser = (req: IncomingMessage, res: ServerResponse) => {
       addToUsers(newUser);
       res.writeHead(201, { "Content-Type": "application/json" });
       res.end(
-        JSON.stringify({
-          success: true,
-          message: user
-        })
+        JSON.stringify(
+          newUser
+        )
       )
     } else {
       res.writeHead(400, { "Content-Type": "application/json" });

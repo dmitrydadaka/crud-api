@@ -5,18 +5,19 @@ import { User } from '../src/IUser';
 
 const routes = '/api/users';
 
-describe('1 SCENARIO: CRUD', () => {
+describe('1 : CRUD', () => {
   let user: User;
   user = {
-    name: 'Tommy',
-    age: 29,
-    hobbies: ['guitar'],
+    id:'6cc7d9eb-5b99-4e0b-8607-7e587e5da433',
+    name: 'Aleksei',
+    age: 44,
+    hobbies: ['music'],
   };
 
   it('Method GET. Response empty array: []', async () => {
-    const res = await request(server).get(routes);
+    const res = await request(server).get("/api/users");
+    expect(res.statusCode).toBe(200);
     expect(res.body).toEqual([]);
-    expect(res.statusCode).toEqual(200);
   });
 
   it('Method POST. Response with recorded info about new user', async () => {
@@ -26,7 +27,7 @@ describe('1 SCENARIO: CRUD', () => {
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toMatchObject(user);
-    //expect(res.body).toHaveProperty('id');
+    expect(res.body).toHaveProperty('id');
   });
 
   it('Method GET: /api/users/${id}. Get user who has been created', async () => {
@@ -55,15 +56,15 @@ describe('1 SCENARIO: CRUD', () => {
   });
 });
 
-describe('2 SCENARIO: Wrong Method', () => {
-  it('PATCH: should try to set PATCH method', async () => {
+describe('2: Wrong Method', () => {
+  it('Try PATCH method', async () => {
     const res = await request(server).patch(routes);
     const message = { message: 'Resource doesn\'t exist!' };
     expect(res.statusCode).toEqual(404);
     expect(res.body).toEqual(message);
   });
 
-  it('HEAD: should try to set HEAD method', async () => {
+  it('Try HEAD method', async () => {
     const res = await request(server).copy(routes);
     const message = { message: 'Resource doesn\'t exist!' };
     expect(res.statusCode).toEqual(404);
@@ -71,16 +72,16 @@ describe('2 SCENARIO: Wrong Method', () => {
   });
 });
 
-describe('3 SCENARIO: Handle errors', () => {
-  it('GET user: should try to get user by wrong id', async () => {
-    const wrongID = 'wrong-id-123';
+describe('3 : Handle errors', () => {
+  it('Try to get user by wrong id', async () => {
+    const wrongID = 'wrong-id-12993';
     const res = await request(server).get(`${routes}/${wrongID}`);
     const message = { message: 'Id is not valid!' };
     expect(res.statusCode).toEqual(400);
     expect(res.body).toEqual(message);
   });
 
-  it('GET user: should try to get user by non existing id', async () => {
+  it('Try to get user by non existing id', async () => {
     const notExistingID = '6cc7d9eb-5b99-4e0b-8607-7e587e5da432';
     const res = await request(server).get(`${routes}/${notExistingID}`);
     expect(res.statusCode).toEqual(404);
@@ -88,7 +89,7 @@ describe('3 SCENARIO: Handle errors', () => {
     expect(res.body).toEqual(message);
   });
 
-  it('POST user: should try to make post method by wrong path', async () => {
+  it('Try to make post method by wrong path', async () => {
     const wrongPath = '/abcd';
     const newUser = {
       username: 'Sasha',
