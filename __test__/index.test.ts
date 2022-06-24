@@ -36,7 +36,7 @@ describe('1 : CRUD', () => {
   });
 
   it('PUT: api/users/{userId}: should update user', async () => {
-    const newName = { name: 'Updated', age: 23, hobbies: ['football'] };
+    const newName = { name: 'Updated', age: 23 };
     const res = await request(server).put(`${routes}/${user.id}`).send(newName);
     expect(res.body.id).toEqual(user.id);
     expect(res.body.name).toEqual(newName.name);
@@ -102,7 +102,7 @@ describe('3 : Handle errors', () => {
     expect(res.body).toEqual(message);
   });
 
-  it('POST user: should try to create user without necessary fields', async () => {
+  it('Try to create user without necessary fields', async () => {
     const newUser = {
       username: 'Tommy',
       hobbies: ['guitar'],
