@@ -13,24 +13,23 @@ describe('1 SCENARIO: CRUD', () => {
     hobbies: ['guitar'],
   };
 
-  it('Should response with empty array: []', async () => {
+  it('Method GET. Response empty array: []', async () => {
     const res = await request(server).get(routes);
     expect(res.body).toEqual([]);
     expect(res.statusCode).toEqual(200);
   });
 
-  it('POST: should response with recorded info about new user', async () => {
+  it('Method POST. Response with recorded info about new user', async () => {
      
-
     const res = await request(server).post(routes).send(user);
     user = res.body;
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toMatchObject(user);
-    expect(res.body).toHaveProperty('id');
+    //expect(res.body).toHaveProperty('id');
   });
 
-  it('GET: /api/users/${id} should get user who has been created', async () => {
+  it('Method GET: /api/users/${id}. Get user who has been created', async () => {
     const res = await request(server).get(`${routes}/${user.id}`);
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual(user);
