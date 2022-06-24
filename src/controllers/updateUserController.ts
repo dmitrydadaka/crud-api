@@ -17,7 +17,7 @@ const updateUser = (req: IncomingMessage, res: ServerResponse, id: string) => {
     const index = users.findIndex((u) => u.id === id);
     const newUser = { id: id, ...user };
     users[index] = newUser;
-    try {
+    
       if (!uuidValidateV4(id)) {
         res.writeHead(400, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ message: 'Id is not valid!' }));
@@ -26,6 +26,7 @@ const updateUser = (req: IncomingMessage, res: ServerResponse, id: string) => {
         res.writeHead(404, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ message: 'Id doesn\'t exist!' }));
       }
+      try {
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(
         JSON.stringify({

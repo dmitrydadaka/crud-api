@@ -6,9 +6,11 @@ import { updateUser } from "./controllers/updateUserController";
 import { deleteUser } from "./controllers/deleteUserController";
 import { getUser } from "./controllers/getUserController";
 import dotenv from "dotenv";
+
 dotenv.config();
+
 const server = http.createServer((req, res) => {
-    try{
+    
         if (req.method === "GET" && req.url!.match(/\/api\/users\/\w+/)) {
             const id = req.url!.split("/")[3];
             return getUser(res, id);
@@ -30,14 +32,14 @@ const server = http.createServer((req, res) => {
             const id = req.url!.split("/")[3];
             return deleteUser(req, res, id);
         }
-    } catch(err) {
+    
         res.writeHead(404, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ message: 'Resource doesn\'t exist!' }));
-    }
-
     
 });
 
 server.listen(process.env.PORT, () => {
     console.log("Server is running on port 5000");
 });
+
+export { server };
