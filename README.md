@@ -1,3 +1,3 @@
-#FOLLOW THIS STEPS!
-1. npm install;
-2. npx nodemon ./src/index.ts;
+#CRUD-API
+##Don't fort to use npm install;
+
