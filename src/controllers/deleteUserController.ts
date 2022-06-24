@@ -10,10 +10,12 @@ const deleteUser = (req: IncomingMessage, res: ServerResponse, id: string) => {
   if (!uuidValidateV4(id)) {
     res.writeHead(400, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ message: 'Id is not valid!' }));
+    return;
   }
   if (index === -1) {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ message: 'Id doesn\'t exist!' }));
+    return;
   }
   try {
     deleteFromUsers(id);
