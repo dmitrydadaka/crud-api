@@ -8,7 +8,6 @@ const routes = '/api/users';
 describe('1 : CRUD', () => {
   let user: User;
   user = {
-    id:'6cc7d9eb-5b99-4e0b-8607-7e587e5da433',
     name: 'Aleksei',
     age: 44,
     hobbies: ['music'],

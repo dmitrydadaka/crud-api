@@ -15,7 +15,7 @@ const updateUser = (req: IncomingMessage, res: ServerResponse, id: string) => {
   req.on("end", () => {
     const user: User = JSON.parse(data);
     const index = users.findIndex((u) => u.id === id);
-    const newUser = { id: id, ...user };
+    const newUser = { ...users[index], ...user };
     users[index] = newUser;
     
       if (!uuidValidateV4(id)) {
@@ -31,10 +31,7 @@ const updateUser = (req: IncomingMessage, res: ServerResponse, id: string) => {
       try {
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(
-        JSON.stringify({
-          success: true,
-          message: users[index],
-        })
+        JSON.stringify(users[index])
       );
     } catch (err) {
       res.writeHead(500, { "Content-Type": "application/json" });
